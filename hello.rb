@@ -1,4 +1,6 @@
-require 'dotenv/load'
+if ENV['RACK_ENV'] != 'production'
+	require 'dotenv/load'
+end
 require 'sinatra'
 
 get '/' do
