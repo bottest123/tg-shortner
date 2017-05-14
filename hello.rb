@@ -1,5 +1,6 @@
+require 'dotenv/load'
 require 'sinatra'
 
 get '/' do
-  "Hello World!"
+  "Hello World! #{ENV['test']}"
 end
