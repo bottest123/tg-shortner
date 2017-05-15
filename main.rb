@@ -6,7 +6,7 @@ require 'telegramAPI'
 require 'sinatra'
 require 'json'
 
-get "/#{ENV['TG_WEBHOOK_TOKEN']}" do
+post "/#{ENV['TG_WEBHOOK_TOKEN']}" do
   status 200
 
   # Get Telegram Data
