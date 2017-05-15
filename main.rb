@@ -16,6 +16,27 @@ post "/#{ENV['TG_WEBHOOK_TOKEN']}" do
 
   # Output data on stdout
   p data
+  # {
+  #   "update_id"=>341826966,
+  #   "message"=>{
+  #     "message_id"=>2,
+  #     "from"=>{
+  #       "id"=>123456789,
+  #       "first_name"=>"Deuteu",
+  #       "last_name"=>"Deuteu",
+  #       "username"=>"Deuteu"
+  #     },
+  #     "chat"=>{
+  #       "id"=>123456789,
+  #       "first_name"=>"Deuteu",
+  #       "last_name"=>"Deuteu",
+  #       "username"=>"Deuteu",
+  #       "type"=>"private"
+  #     },
+  #     "date"=>1494875758,
+  #     "text"=>"test"
+  #   }
+  # }
 
   # Return an empty json, to say "ok" to Telegram
   content_type :json
