@@ -6,8 +6,6 @@ require 'telegramAPI'
 require 'sinatra'
 require 'json'
 
-p "App name: #{ENV['HEROKU_APP_NAME']}"
-
 get "/#{ENV['TG_WEBHOOK_TOKEN']}" do
   status 200
 
@@ -24,5 +22,6 @@ get "/#{ENV['TG_WEBHOOK_TOKEN']}" do
   {}.to_json
 end
 
-#r = api.setWebhook("https://YOUR_URL/#{ENV['TG_WEBHOOK_TOKEN']}").to_json
+#HEROKU_APP_NAME missing so do it manually
+#r = api.setWebhook("https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com/#{ENV['TG_WEBHOOK_TOKEN']}").to_json
 #puts "setWebhook Result: #{r}" 
