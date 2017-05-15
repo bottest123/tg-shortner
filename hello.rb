@@ -2,9 +2,11 @@ if ENV['RACK_ENV'] != 'production'
 	require 'dotenv/load'
 end
 
+require 'telegramAPI'
 require 'sinatra'
 require 'json'
 
+p "App name: #{ENV['HEROKU_APP_NAME']}"
 
 get "/#{ENV['TG_WEBHOOK_TOKEN']}" do
   status 200
@@ -21,3 +23,6 @@ get "/#{ENV['TG_WEBHOOK_TOKEN']}" do
   content_type :json
   {}.to_json
 end
+
+#r = api.setWebhook("https://YOUR_URL/#{ENV['TG_WEBHOOK_TOKEN']}").to_json
+#puts "setWebhook Result: #{r}" 
