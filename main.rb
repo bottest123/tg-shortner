@@ -37,6 +37,9 @@ post "/#{ENV['TG_WEBHOOK_TOKEN']}" do
   #     "text"=>"test"
   #   }
   # }
+  if data["message"]
+    api.sendMessage(data["message"]["chat"]["id"], data["message"]["text"])
+  end
 
   # Return an empty json, to say "ok" to Telegram
   content_type :json
