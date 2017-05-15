@@ -14,7 +14,7 @@ puts "App name: #{ENV['HEROKU_APP_NAME']}"
 api = TelegramAPI.new(ENV['TG_API_TOKEN'].to_s)
 
 def is_admin?(user_id)
-  admin_ids = ENV['TG_ADMIN_ID'].to_s.split(';')
+  admin_ids = ENV['TG_ADMIN_IDS'].to_s.split(';')
   admin_ids << ENV['TG_SUPER_ADMIN_ID'].to_s
   return admin_ids.include?(user_id.to_s)
 end
