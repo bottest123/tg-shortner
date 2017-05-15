@@ -6,6 +6,8 @@ require 'telegramAPI'
 require 'sinatra'
 require 'json'
 
+api = TelegramAPI.new ENV['TG_API_TOKEN'].to_s
+
 post "/#{ENV['TG_WEBHOOK_TOKEN']}" do
   status 200
 
