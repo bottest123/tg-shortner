@@ -3,10 +3,16 @@ GEM
   specs:
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
+    googl (0.7.1)
+      httparty (~> 0.10)
+      json (>= 1.4.6)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    httparty (0.15.2)
+      multi_xml (>= 0.5.2)
     json (1.8.3)
     mime-types (2.99.3)
+    multi_xml (0.6.0)
     mustermann (1.0.0)
     netrc (0.11.0)
     rack (2.0.2)
@@ -32,6 +38,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  googl
   json
   sinatra
   telegramAPI

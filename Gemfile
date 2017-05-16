@@ -5,3 +5,4 @@ gem 'sinatra'
 gem 'json'
 
 gem 'telegramAPI'
+gem 'googl'
