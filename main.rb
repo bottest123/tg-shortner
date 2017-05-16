@@ -6,6 +6,7 @@ require 'sinatra'
 
 require 'json'
 require 'uri'
+require 'httparty'
 
 require 'telegramAPI'
 
@@ -21,6 +22,15 @@ end
 
 def get_urls(text)
   URI.extract(text.to_s, ['http', 'https'])
+end
+
+def shorten(url)
+  result = HTTParty.post(
+    "#{ENV['GOOGLE_API_URL']}?key=#{ENV['GOOGLE_API_KEY']}",
+    body: {longUrl: url}.to_json,
+    headers: { 'Content-Type' => 'application/json' }
+  )
+  result.parsed_response
 end
 
 post "/#{ENV['TG_WEBHOOK_TOKEN']}" do
@@ -45,6 +55,7 @@ post "/#{ENV['TG_WEBHOOK_TOKEN']}" do
     puts "MissingArgs - No chat id for response: #{data}"
     return empty_json
   end
+  chat_id = message["chat"]["id"]
 
   from = message["from"]
   unless is_admin?(from["id"])
@@ -61,11 +72,18 @@ post "/#{ENV['TG_WEBHOOK_TOKEN']}" do
   urls = get_urls(message["text"])
   if urls.empty?
     puts "NoUrl - Message with no urls: #{message["text"]}"
-    api.sendMessage(message["chat"]["id"], "No urls.")
-  else
-    urls.each do |url|
-      api.sendMessage(message["chat"]["id"], url)
+    api.sendMessage(chat_id, "No urls.")
+    return empty_json
+  end
+  
+  urls.each do |url|
+    response = shorten(url)
+    unless response
+      api.sendMessage(chat_id, "Error shortening '#{url}'.")
+      return empty_json
     end
+
+    api.sendMessage(chat_id, response['id'])
   end
 
   # Return an empty json, to say "ok" to Telegram
