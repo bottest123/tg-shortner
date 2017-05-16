@@ -88,8 +88,8 @@ post "/#{ENV['TG_WEBHOOK_TOKEN']}" do
   return {}.to_json
 end
 
-unless ENV['HEROKU_APP_NAME'].blank?
+unless ENV['HEROKU_APP_NAME'].nil?
   r = api.setWebhook("https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com/#{ENV['TG_WEBHOOK_TOKEN']}").to_json
-  api.sendMessage(ENV['TG_SUPER_ADMIN_ID'].to_s, r) unless ENV['TG_SUPER_ADMIN_ID'].blank?
+  api.sendMessage(ENV['TG_SUPER_ADMIN_ID'].to_s, r) unless ENV['TG_SUPER_ADMIN_ID'].nil?
   puts "setWebhook Result: #{r}"
 end
