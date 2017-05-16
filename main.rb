@@ -10,8 +10,6 @@ require 'httparty'
 
 require 'telegramAPI'
 
-puts "App name: #{ENV['HEROKU_APP_NAME']}"
-
 api = TelegramAPI.new(ENV['TG_API_TOKEN'].to_s)
 
 def is_admin?(user_id)
@@ -90,6 +88,8 @@ post "/#{ENV['TG_WEBHOOK_TOKEN']}" do
   return {}.to_json
 end
 
-#HEROKU_APP_NAME missing so do it manually
-#r = api.setWebhook("https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com/#{ENV['TG_WEBHOOK_TOKEN']}").to_json
-#puts "setWebhook Result: #{r}" 
+unless ENV['HEROKU_APP_NAME'].blank?
+  r = api.setWebhook("https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com/#{ENV['TG_WEBHOOK_TOKEN']}").to_json
+  api.sendMessage(ENV['TG_SUPER_ADMIN_ID'].to_s, r) unless ENV['TG_SUPER_ADMIN_ID'].blank?
+  puts "setWebhook Result: #{r}"
+end
